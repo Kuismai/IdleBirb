@@ -5,6 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.TextView
+import android.widget.Toast
+import androidx.fragment.app.viewModels
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -20,6 +24,7 @@ class Home : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+    private val viewModel: MyViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +40,20 @@ class Home : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_home, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        var seeds = viewModel.seeds
+        val seedc = view.findViewById(R.id.textView1) as TextView
+        seedc.text = seeds.toString()
+
+        val button_s = view.findViewById<Button>(R.id.button_s)
+        button_s.setOnClickListener {
+            Toast.makeText(context, "toast test", Toast.LENGTH_SHORT).show()
+            gatherSeeds()
+        }
     }
 
     companion object {
@@ -56,4 +75,13 @@ class Home : Fragment() {
                 }
             }
     }
+
+fun gatherSeeds() {
+    Toast.makeText (context, "seed got!", Toast.LENGTH_SHORT).show()
+    var seeds = viewModel.seeds
+    seeds = seeds + 1
+    viewModel.seeds = seeds
+    val seedc = view?.findViewById(R.id.textView1) as TextView
+    seedc.text = seeds.toString()
+}
 }
