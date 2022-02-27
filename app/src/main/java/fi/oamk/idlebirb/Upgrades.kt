@@ -76,7 +76,7 @@ class Upgrades : Fragment() {
 
 
         if (seedCount >= beakPrice) {
-            Toast.makeText(context, "enough!", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(context, "enough!", Toast.LENGTH_SHORT).show()
             var seedCount1 = seedCount - beakPrice
             viewModel.setSeeds(seedCount1)
             var multiplier1 = multiplier * 3

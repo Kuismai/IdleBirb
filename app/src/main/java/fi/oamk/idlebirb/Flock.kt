@@ -59,18 +59,18 @@ class Flock : Fragment() {
         }
 
         val buttonNest = view.findViewById<Button>(R.id.nestBuyButton)
-        var nestPrice = viewModel.nestPrice
+        var nestPrice = viewModel.nestPrice.value!!
 
-        buttonNest.text = nestPrice.toString() + " feathers"
+        buttonNest.text = nestPrice.toInt().toString() + " feathers"
         buttonNest.setOnClickListener {
             buyNest()
         }
 
         val buttonMomma = view.findViewById<Button>(R.id.mommaBuyButton)
-        var mommaPrice1 = viewModel.mommaPrice1
-        var mommaPrice2 = viewModel.mommaPrice2
+        var mommaPrice1 = viewModel.mommaPrice1.value!!
+        var mommaPrice2 = viewModel.mommaPrice2.value!!
 
-        buttonMomma.text = mommaPrice1.toString() + " feathers," + mommaPrice2.toString() + " seeds"
+        buttonMomma.text = mommaPrice1.toInt().toString() + " F," + mommaPrice2.toInt().toString() + " S"
         buttonMomma.setOnClickListener {
             buyMomma()
         }
@@ -78,11 +78,53 @@ class Flock : Fragment() {
     }
 
     private fun buyMomma() {
-        TODO("Not yet implemented")
+        var featherCount = viewModel.feathers.value!!
+        var seedCount = viewModel.seeds.value!!
+        var mommaPrice1 = viewModel.mommaPrice1.value!!
+        var mommaPrice2 = viewModel.mommaPrice2.value!!
+        var mommaCount = viewModel.mommas.value!!
+
+        if (featherCount >= mommaPrice1.toInt()) {
+
+            if (seedCount >= mommaPrice2.toInt()) {
+                var featherCount1 = featherCount - mommaPrice1.toInt()
+                viewModel.setFeathers(featherCount1)
+                var seedCount1 = seedCount - mommaPrice2.toInt()
+                viewModel.setSeeds(seedCount1)
+
+                var mommaCount1 = mommaCount + 1
+                viewModel.setMomma(mommaCount1)
+
+                var mommaPrice11 = mommaPrice1 * 1.5
+                viewModel.setMommaPrice1(mommaPrice11.toInt())
+                var mommaPrice21 = mommaPrice2 * 1.75
+                viewModel.setMommaPrice2(mommaPrice21.toInt())
+
+                val buttonMomma = view?.findViewById<Button>(R.id.mommaBuyButton)
+
+                buttonMomma?.text = mommaPrice11.toInt().toString() + " F," + mommaPrice21.toInt().toString() + " S"
+            }
+        }
     }
 
     private fun buyNest() {
-        TODO("Not yet implemented")
+        var featherCount = viewModel.feathers.value!!
+        var nestPrice = viewModel.nestPrice.value!!
+        var nestCount = viewModel.nests.value!!
+
+        if (featherCount >= nestPrice.toInt()) {
+            var featherCount1 = featherCount - nestPrice.toInt()
+            viewModel.setFeathers(featherCount1)
+            var nestCount1 = nestCount + 1
+            viewModel.setNest(nestCount1)
+
+            var nestPrice1 = nestPrice * 1.5
+            viewModel.setNestPrice(nestPrice1.toInt())
+
+            val buttonNest = view?.findViewById<Button>(R.id.nestBuyButton)
+
+            buttonNest?.text = nestPrice1.toInt().toString() + " feathers"
+        }
     }
 
     private fun buyBaby() {
@@ -94,10 +136,14 @@ class Flock : Fragment() {
             var seedCount1 = seedCount - babyPrice.toInt()
             viewModel.setSeeds(seedCount1)
             var babyCount1 = babyCount + 1
-            viewModel.setMulti(babyCount1)
+            viewModel.setBaby(babyCount1)
 
             var babyPrice1 = babyPrice * 1.1
             viewModel.setBabyPrice(babyPrice1.toInt())
+
+            val buttonBaby = view?.findViewById<Button>(R.id.babyBuyButton)
+
+            buttonBaby?.text = babyPrice1.toInt().toString() + " seeds"
             }
 
     }

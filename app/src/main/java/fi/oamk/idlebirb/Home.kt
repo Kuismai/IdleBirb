@@ -10,9 +10,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.LiveData
-import java.util.concurrent.ExecutorService
-import java.util.concurrent.Executors
-import java.util.concurrent.TimeUnit
+import java.util.*
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -30,8 +28,6 @@ class Home : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
     private val viewModel: MyViewModel by activityViewModels()
-    val executorService = Executors.newSingleThreadScheduledExecutor()
-    //private Runnable r
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,25 +37,38 @@ class Home : Fragment() {
             param2 = it.getString(ARG_PARAM2)
         }
 
-        //val executorService = Executors.newSingleThreadScheduledExecutor()
-        //executorService.scheduleAtFixedRate({ updateNums()}, 0, 1, TimeUnit.SECONDS)
 
 
 
     }
 
     private fun updateNums() {
-        /*var babies = viewModel.babies.value!!
+        var babies = viewModel.babies.value!!
         var seeds = viewModel.seeds.value!!
         var multi: Int = viewModel.multiplier.value!!
+        var feathers = viewModel.feathers.value!!
+        var nests = viewModel.nests.value!!
+        var mommas = viewModel.mommas.value!!
         val seedc = view?.findViewById(R.id.textViewS) as TextView
+        val feath = view?.findViewById(R.id.textViewF) as TextView
+
+
+        val nests1 = (nests + mommas)
+        viewModel.setNest(nests1)
+
+        val babies1 = (babies + nests)
+        viewModel.setBaby(babies1)
+
+        val feathers1 = (feathers + babies)
+        viewModel.setFeathers(feathers1)
 
         val seed1 = seeds + (babies * multi)
-
         viewModel.setSeeds(seed1)
-        seedc.text = seed1.toString()*/
 
-        Toast.makeText(context, "I'm running here!", Toast.LENGTH_SHORT).show()
+        seedc.text = seed1.toString()
+        feath.text = feathers1.toString()
+
+        //Toast.makeText(context, "I'm running here!", Toast.LENGTH_SHORT).show()
 
     }
 
@@ -89,7 +98,7 @@ class Home : Fragment() {
             gatherSeeds()
         }
 
-        executorService.scheduleAtFixedRate({ updateNums() }, 0, 1, TimeUnit.SECONDS)
+
     }
 
     override fun onResume() {
@@ -97,6 +106,10 @@ class Home : Fragment() {
         var seeds = viewModel.seeds.value
         val seedc = view?.findViewById(R.id.textViewS) as TextView
         seedc.text = seeds.toString()
+
+        var feathers = viewModel.feathers.value
+        val featherc = view?.findViewById(R.id.textViewF) as TextView
+        featherc.text = feathers.toString()
 
     }
 
@@ -129,5 +142,7 @@ fun gatherSeeds() {
     viewModel.setSeeds(seeds1)
     val seedc = view?.findViewById(R.id.textViewS) as TextView
     seedc.text = seeds1.toString()
+
+    updateNums()
 }
 }

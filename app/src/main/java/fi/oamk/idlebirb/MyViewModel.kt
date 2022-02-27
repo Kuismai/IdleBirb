@@ -27,13 +27,19 @@ class MyViewModel : ViewModel() {
     private var _babyPrice = MutableLiveData<Double>(50.0)
     var babyPrice: LiveData<Double> = _babyPrice
 
+    private var _nestPrice = MutableLiveData<Double>(20.0)
+    var nestPrice: LiveData<Double> = _nestPrice
+
+    private var _mommaPrice1 = MutableLiveData<Double>(100.0)
+    var mommaPrice1: LiveData<Double> = _mommaPrice1
+
+    private var _mommaPrice2 = MutableLiveData<Double>(2000.0)
+    var mommaPrice2: LiveData<Double> = _mommaPrice2
+
+
     var beakPrice = 20
     var birboPrice = 3000
     var stripePrice = 10000
-
-    var nestPrice = 20
-    var mommaPrice1 = 100
-    var mommaPrice2 = 2000
 
     fun setSeeds(i: Int) {
         _seeds.value = i
@@ -61,5 +67,17 @@ class MyViewModel : ViewModel() {
 
     fun setBabyPrice(i: Int){
         _babyPrice.value = i.toDouble()
+    }
+
+    fun setNestPrice(i: Int){
+        _nestPrice.value = i.toDouble()
+    }
+
+    fun setMommaPrice1(i: Int){
+        _mommaPrice1.value = i.toDouble()
+    }
+
+    fun setMommaPrice2(i: Int){
+        _mommaPrice2.value = i.toDouble()
     }
 }
