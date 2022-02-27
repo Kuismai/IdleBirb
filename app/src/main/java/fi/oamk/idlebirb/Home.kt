@@ -8,7 +8,12 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.LiveData
+import java.util.concurrent.ExecutorService
+import java.util.concurrent.Executors
+import java.util.concurrent.TimeUnit
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -24,7 +29,10 @@ class Home : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-    private val viewModel: MyViewModel by viewModels()
+    private val viewModel: MyViewModel by activityViewModels()
+    val executorService = Executors.newSingleThreadScheduledExecutor()
+    //private Runnable r
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +40,27 @@ class Home : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+
+        //val executorService = Executors.newSingleThreadScheduledExecutor()
+        //executorService.scheduleAtFixedRate({ updateNums()}, 0, 1, TimeUnit.SECONDS)
+
+
+
+    }
+
+    private fun updateNums() {
+        /*var babies = viewModel.babies.value!!
+        var seeds = viewModel.seeds.value!!
+        var multi: Int = viewModel.multiplier.value!!
+        val seedc = view?.findViewById(R.id.textViewS) as TextView
+
+        val seed1 = seeds + (babies * multi)
+
+        viewModel.setSeeds(seed1)
+        seedc.text = seed1.toString()*/
+
+        Toast.makeText(context, "I'm running here!", Toast.LENGTH_SHORT).show()
+
     }
 
     override fun onCreateView(
@@ -45,15 +74,30 @@ class Home : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        var seeds = viewModel.seeds
-        val seedc = view.findViewById(R.id.textView1) as TextView
+        var seeds = viewModel.seeds.value
+        val seedc = view.findViewById(R.id.textViewS) as TextView
         seedc.text = seeds.toString()
 
-        val button_s = view.findViewById<Button>(R.id.button_s)
-        button_s.setOnClickListener {
-            Toast.makeText(context, "toast test", Toast.LENGTH_SHORT).show()
+        var feathers = viewModel.feathers.value
+        val featherc = view.findViewById(R.id.textViewF) as TextView
+        featherc.text = feathers.toString()
+
+
+
+        val buttonSeeds = view.findViewById<Button>(R.id.button_s)
+        buttonSeeds.setOnClickListener {
             gatherSeeds()
         }
+
+        executorService.scheduleAtFixedRate({ updateNums() }, 0, 1, TimeUnit.SECONDS)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        var seeds = viewModel.seeds.value
+        val seedc = view?.findViewById(R.id.textViewS) as TextView
+        seedc.text = seeds.toString()
+
     }
 
     companion object {
@@ -76,12 +120,14 @@ class Home : Fragment() {
             }
     }
 
+
+
 fun gatherSeeds() {
-    Toast.makeText (context, "seed got!", Toast.LENGTH_SHORT).show()
-    var seeds = viewModel.seeds
-    seeds = seeds + 1
-    viewModel.seeds = seeds
-    val seedc = view?.findViewById(R.id.textView1) as TextView
-    seedc.text = seeds.toString()
+    var seeds: Int = viewModel.seeds.value!!
+    var multi: Int = viewModel.multiplier.value!!
+    var seeds1: Int = (seeds + multi)
+    viewModel.setSeeds(seeds1)
+    val seedc = view?.findViewById(R.id.textViewS) as TextView
+    seedc.text = seeds1.toString()
 }
 }

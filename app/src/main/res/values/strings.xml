@@ -6,4 +6,19 @@
     <string name="flock_fragment">Flock</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="babybuy">Recruit a birb to gather seeds.</string>
+    <string name="nestbuy">Build a nest. Hatches more birbs!</string>
+    <string name="mommabuy">Recruit a momma birb to build nests for you.</string>
+    <string name="babybutton"> seeds</string>
+    <string name="nestbutton"> feathers</string>
+    <string name="mommabutton"> feathers</string>
+    <string name="stripesbuy">Go-faster stripes for maximum performance.</string>
+    <string name="birbobuy">Birboculars increase your seed-finding capabilities.</string>
+    <string name="beakbuy">Reinforced beak for better seed acquisition.</string>
+    <string name="beakbutton"> seeds</string>
+    <string name="birbobutton"> seeds</string>
+    <string name="stripebutton"> seeds</string>
+    <string name="stripebought">Bought!</string>
+    <string name="birbobought">Bought!</string>
+    <string name="beakbought">Bought!</string>
 </resources>

@@ -5,6 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.Toast
+import androidx.fragment.app.activityViewModels
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -20,6 +23,7 @@ class Upgrades : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+    private val viewModel: MyViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +40,89 @@ class Upgrades : Fragment() {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_upgrades, container, false)
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val buttonBeak = view.findViewById<Button>(R.id.beakBuyButton)
+        var beakPrice = viewModel.beakPrice
+
+        buttonBeak.text = beakPrice.toString() + " seeds"
+        buttonBeak.setOnClickListener {
+            buyBeak()
+        }
+
+        val buttonBirbo = view.findViewById<Button>(R.id.birbocularsBuyButton)
+        var birboPrice = viewModel.birboPrice
+
+        buttonBirbo.text = birboPrice.toString() + " seeds"
+        buttonBirbo.setOnClickListener {
+            buyBirbo()
+        }
+
+        val buttonStripes = view.findViewById<Button>(R.id.stripeBuyButton)
+        var stripePrice = viewModel.stripePrice
+
+        buttonStripes.text = stripePrice.toString() + " seeds"
+        buttonStripes.setOnClickListener {
+            buyStripes()
+        }
+    }
+
+    private fun buyBeak() {
+        var seedCount = viewModel.seeds.value!!
+        var beakPrice = viewModel.beakPrice
+        var multiplier = viewModel.multiplier.value!!
+
+
+        if (seedCount >= beakPrice) {
+            Toast.makeText(context, "enough!", Toast.LENGTH_SHORT).show()
+            var seedCount1 = seedCount - beakPrice
+            viewModel.setSeeds(seedCount1)
+            var multiplier1 = multiplier * 3
+            viewModel.setMulti(multiplier1)
+
+            val buttonBeak = view?.findViewById<Button>(R.id.beakBuyButton)
+            buttonBeak!!.isEnabled = false
+            buttonBeak!!.text = getString(R.string.beakbought)
+        }
+    }
+
+
+    private fun buyBirbo() {
+        var seedCount = viewModel.seeds.value!!
+        var birboPrice = viewModel.birboPrice
+        var multiplier = viewModel.multiplier.value!!
+
+        if (seedCount > birboPrice) {
+            var seedCount1 = seedCount - birboPrice
+            viewModel.setSeeds(seedCount1)
+            var multiplier1 = multiplier * 5
+            viewModel.setMulti((multiplier1))
+            val buttonBirbo = view?.findViewById<Button>(R.id.birbocularsBuyButton)
+            buttonBirbo!!.isEnabled = false
+            buttonBirbo!!.text = getString(R.string.birbobought)
+        }
+    }
+
+    private fun buyStripes() {
+        var seedCount = viewModel.seeds.value!!
+        var stripePrice = viewModel.stripePrice
+        var multiplier = viewModel.multiplier.value!!
+
+        if (seedCount > stripePrice) {
+            var seedCount1 = seedCount - stripePrice
+            viewModel.setSeeds(seedCount1)
+            var multiplier1 = multiplier * 10
+            viewModel.setMulti(multiplier1)
+
+            val buttonStripes = view?.findViewById<Button>(R.id.stripeBuyButton)
+            buttonStripes!!.isEnabled = false
+            buttonStripes!!.text = getString(R.string.stripebought)
+        }
+    }
+
+
 
     companion object {
         /**

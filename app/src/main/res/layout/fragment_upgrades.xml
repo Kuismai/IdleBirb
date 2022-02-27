@@ -1,16 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Upgrades">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:textSize="20sp"
-        android:text="@string/upgrade_fragment" />
+        android:layout_width="match_parent">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/beakBuyButton"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:text="@string/beakbutton"
+            android:layout_marginRight="30dp"
+            app:layout_constraintRight_toRightOf="parent"
+            layout_marginBottom="10dp"
+            app:layout_constraintBottom_toTopOf="@+id/BeakDesc">
+        </androidx.appcompat.widget.AppCompatButton>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/birbocularsBuyButton"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:text="@string/birbobutton"
+            android:layout_marginRight="30dp"
+            app:layout_constraintRight_toRightOf="parent"
+            layout_marginBottom="10dp"
+            app:layout_constraintBottom_toTopOf="@+id/BirboDesc">
+        </androidx.appcompat.widget.AppCompatButton>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/stripeBuyButton"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:text="@string/stripebutton"
+            android:layout_marginRight="30dp"
+            app:layout_constraintRight_toRightOf="parent"
+            layout_marginBottom="10dp"
+            app:layout_constraintBottom_toTopOf="@+id/StripeDesc">
+        </androidx.appcompat.widget.AppCompatButton>
+
+        <TextView
+            android:id="@+id/BeakDesc"
+            android:layout_width="188dp"
+            android:layout_height="95dp"
+            android:layout_marginBottom="8dp"
+            android:gravity="center"
+            android:text="@string/beakbuy"
+            android:layout_marginRight="20dp"
+            app:layout_constraintRight_toRightOf="parent"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@id/imageView6"
+            tools:layout_editor_absoluteX="222dp" />
+
+        <TextView
+            android:id="@+id/BirboDesc"
+            android:layout_width="188dp"
+            android:layout_height="95dp"
+            android:layout_marginBottom="8dp"
+            android:gravity="center"
+            android:text="@string/birbobuy"
+            android:textSize="20sp"
+            android:layout_marginRight="20dp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/imageView7"
+            tools:layout_editor_absoluteX="222dp" />
+
+        <TextView
+            android:id="@+id/StripeDesc"
+            android:layout_width="188dp"
+            android:layout_height="95dp"
+            android:layout_marginBottom="8dp"
+            android:gravity="center"
+            android:text="@string/stripesbuy"
+            android:layout_marginRight="20dp"
+            app:layout_constraintRight_toRightOf="parent"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@id/imageView8"
+            tools:layout_editor_absoluteX="222dp" />
+
+        <ImageView
+            android:id="@+id/imageView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="40dp"
+            android:layout_marginLeft="20dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/imageView7"
+            android:src="@drawable/beak" />
+
+        <ImageView
+            android:id="@+id/imageView7"
+            android:layout_width="177dp"
+            android:layout_height="148dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginBottom="40dp"
+            android:src="@drawable/birboculars"
+            app:layout_constraintBottom_toTopOf="@+id/imageView8"
+            app:layout_constraintLeft_toLeftOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageView8"
+            android:layout_width="179dp"
+            android:layout_height="142dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginBottom="40dp"
+            android:src="@drawable/stripes"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>
